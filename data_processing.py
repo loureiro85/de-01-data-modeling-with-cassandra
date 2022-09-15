@@ -83,11 +83,11 @@ def get_values_1(line: Tuple) -> Tuple:
     """Get values for insert 1, from line."""
 
     values = (
-        line[0],
-        line[9],
-        float(line[5]),
-        int(line[8]),
-        int(line[3])
+        int(line[8]),  # session_id
+        int(line[3]),  # item_in_session
+        line[0],  # artist
+        line[9],  # song_title
+        float(line[5])  # song_length
     )
     return values
 
@@ -96,13 +96,13 @@ def get_values_2(line: Tuple) -> Tuple:
     """Get values for insert 2, from line."""
 
     values = (
-        line[0],
-        line[9],
-        line[1],
-        line[4],
-        int(line[10]),
-        int(line[8]),
-        int(line[3]),
+        int(line[10]),  # user_id
+        int(line[8]),  # session_id
+        int(line[3]),  # item_in_session
+        line[0],  # artist
+        line[9],  # song_title
+        line[1],  # first_name
+        line[4],  # user_last_name
     )
     return values
 
@@ -111,9 +111,10 @@ def get_values_3(line: Tuple) -> Tuple:
     """Get values for insert 3, from line."""
 
     values = (
-        line[1],
-        line[4],
-        line[9],
+        line[9],  # song_title
+        int(line[10]),  # user_id
+        line[1],  # first_name
+        line[4],  # user_last_name
     )
     return values
 

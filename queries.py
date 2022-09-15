@@ -4,12 +4,12 @@ that was heard during sessionId = 338, and itemInSession = 4"""
 
 QUERY_1 = """
     SELECT artist, song_title, song_length
-    FROM song_by_item
+    FROM songs_by_user_session_item
     WHERE session_id=338 AND item_in_session=4;
     """
 
 CREATE_TABLE_1 = """
-    CREATE TABLE IF NOT EXISTS song_by_item (
+    CREATE TABLE IF NOT EXISTS songs_by_user_session_item (
         session_id int,
         item_in_session int,
         artist text,
@@ -20,12 +20,12 @@ CREATE_TABLE_1 = """
 """
 
 INSERT_1 = """
-    INSERT INTO song_by_item (
+    INSERT INTO songs_by_user_session_item (
+        session_id,
+        item_in_session,
         artist,
         song_title,
-        song_length,
-        session_id,
-        item_in_session
+        song_length
     )
     VALUES (%s, %s, %s, %s, %s)
 """
@@ -42,13 +42,13 @@ for userid = 10, sessionid = 182
 
 QUERY_2 = """
     SELECT artist, song_title, first_name, user_last_name
-    FROM song_by_user_and_session
+    FROM songs_by_user_in_session
     WHERE user_id=10 AND session_id=182
     ORDER BY item_in_session;
     """
 
 CREATE_TABLE_2 = """
-    CREATE TABLE IF NOT EXISTS song_by_user_and_session (
+    CREATE TABLE IF NOT EXISTS songs_by_user_in_session (
         user_id int,
         session_id int,
         item_in_session int,
@@ -56,19 +56,19 @@ CREATE_TABLE_2 = """
         song_title text,
         first_name text,
         user_last_name text,
-        PRIMARY KEY (user_id, session_id, item_in_session)
+        PRIMARY KEY ((user_id, session_id), item_in_session)
     )
 """
 
 INSERT_2 = """
-    INSERT INTO song_by_user_and_session (
+    INSERT INTO songs_by_user_in_session (
+        user_id,
+        session_id,
+        item_in_session,
         artist,
         song_title,
         first_name,
-        user_last_name,
-        user_id,
-        session_id,
-        item_in_session
+        user_last_name
     )
     VALUES (%s, %s, %s, %s, %s, %s, %s)
 """
@@ -87,17 +87,19 @@ QUERY_3 = """
 CREATE_TABLE_3 = """
     CREATE TABLE IF NOT EXISTS user_by_song (
         song_title text,
+        user_id int,
         first_name text,
         user_last_name text,
-        PRIMARY KEY (song_title, first_name, user_last_name)
+        PRIMARY KEY ((song_title), user_id)
         )
 """
 
 INSERT_3 = """
     INSERT INTO user_by_song (
+        song_title,
+        user_id,
         first_name,
-        user_last_name,
-        song_title
+        user_last_name
     )
-    VALUES (%s, %s, %s)
+    VALUES (%s, %s, %s, %s)
 """
